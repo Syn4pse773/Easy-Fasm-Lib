@@ -1,6 +1,9 @@
 # Easy-Fasm-Lib
 
 An ultra-fast, high-performance static library consisting of **10 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
+
+All functions are engineered with highly optimized x86-64 assembly routines, providing superior execution speeds for core string and buffer operations. To ensure a professional and clean namespace, all library functions are prefixed with `sys_`.
+
 ---
 
 ## 🚀 Features
@@ -99,7 +102,14 @@ Simply run `make` inside the project root directory. The build system will autom
 make
 ```
 
-To clean up intermediate `.o` object files and the static library from your local directory, run:
+### Run the Demo
+To compile the library, compile the C test runner, link them together, and run the demo executable in a single command, execute:
+
+```bash
+make run
+```
+
+To clean up intermediate `.o` object files, the demo binary, and the static library from your local directory, run:
 
 ```bash
 make clean
@@ -167,15 +177,21 @@ int main() {
 ```
 
 ### Compile & Run the Example
-To compile and execute the test runner linking against the static library, run:
+You can compile and execute the demo using:
 
 ```bash
-gcc main.c libsyn.a -o test
-./test
+make run
+```
+
+Alternatively, you can do it manually by running:
+
+```bash
+gcc main.c -L. -lsyn -o demo
+./demo
 ```
 
 ---
 
-##  Author
+## Author
 Developed and maintained by **Syn4pse773**.
 *   GitHub Repository: [Easy-Fasm-Lib](https://github.com/Syn4pse773/Easy-Fasm-Lib)
