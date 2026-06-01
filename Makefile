@@ -14,5 +14,10 @@ all: $(LIB)
 $(LIB): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 
+# Compile and run the demo example
+run: all
+	gcc main.c -L. -lsyn -o demo
+	./demo
+
 clean:
-	rm -f *.o $(LIB) test_runner
+	rm -f *.o $(LIB) demo
