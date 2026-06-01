@@ -201,6 +201,6 @@ gcc main.c libsyn.a -o test
 
 ---
 
-## 👤 Author
+## Author
 Developed and maintained by **Syn4pse773**.
 *   GitHub Repository: [Easy-Fasm-Lib](https://github.com/Syn4pse773/Easy-Fasm-Lib)
