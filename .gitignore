@@ -1,0 +1,13 @@
+*.o
+*.a
+test_runner
+test_lib
+demo
+atoitest
+bench_asm
+finance_manager
+hash_test
+reverse_test
+test_finance
+test_macro
+a.out
