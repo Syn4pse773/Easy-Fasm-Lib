@@ -10,4 +10,6 @@ hash_test
 reverse_test
 test_finance
 test_macro
+testcat.c
 a.out
+test_cat

@@ -1,6 +1,6 @@
 # Easy-Fasm-Lib
 
-An ultra-fast, high-performance static library consisting of **10 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
+An ultra-fast, high-performance static library consisting of **11 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
 
 All functions are engineered with highly optimized x86-64 assembly routines, providing superior execution speeds for core string and buffer operations. To ensure a professional and clean namespace, all library functions are prefixed with `sys_`.
 
@@ -8,7 +8,7 @@ All functions are engineered with highly optimized x86-64 assembly routines, pro
 
 ## 🚀 Features
 
-The library compiles into a single static library `libsyn.a` containing the following 10 optimized functions:
+The library compiles into a single static library `libsyn.a` containing the following 11 optimized functions:
 
 ### 1. Memory Operations
 
@@ -56,6 +56,13 @@ The library compiles into a single static library `libsyn.a` containing the foll
         void sys_tolowercase(char *str);
         ```
 
+*   **`sys_strcat`**
+    *   **Description:** Appends the source string to the destination string, overwriting the terminating null byte at the end of destination, and then adds a terminating null byte. Returns a pointer to the destination string.
+    *   **C Prototype:**
+        ```c
+        char *sys_strcat(char *dest, const char *src);
+        ```
+
 ### 3. Conversions & Parsing
 
 *   **`sys_atoi`**
@@ -96,7 +103,7 @@ The library compiles into a single static library `libsyn.a` containing the foll
 Make sure you have **FASM** (flat assembler) and standard development tools (**gcc**, **ar**, **make**) installed on your Linux system.
 
 ### Build the Library
-Simply run `make` inside the project root directory. The build system will automatically assemble all 10 modules and package them into `libsyn.a`:
+Simply run `make` inside the project root directory. The build system will automatically assemble all 11 modules and package them into `libsyn.a`:
 
 ```bash
 make
@@ -167,7 +174,12 @@ int main() {
     // 9. Get string length
     printf("sys_strlen: %llu\n", sys_strlen("strlen_test"));
 
-    // 10. Lowercase conversion
+    // 10. String concatenation
+    char dest_cat[50] = "Hello, ";
+    char *res_cat = sys_strcat(dest_cat, "World!");
+    printf("sys_strcat: %s (returned: %p, expected: %p)\n", dest_cat, res_cat, dest_cat);
+
+    // 11. Lowercase conversion
     char lower[] = "HELLO_world";
     sys_tolowercase(lower);
     printf("sys_tolowercase: %s\n", lower);

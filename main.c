@@ -34,6 +34,10 @@ int main()
 
 	printf("sys_strlen: %llu\n", sys_strlen("strlen_test"));
 
+	char dest_cat[50] = "Hello, ";
+	char *res_cat = sys_strcat(dest_cat, "World!");
+	printf("sys_strcat: %s (returned: %p, expected: %p)\n", dest_cat, res_cat, dest_cat);
+
 	char lower[] = "HELLO_world";
 	sys_tolowercase(lower);
 	printf("sys_tolowercase: %s\n", lower);

@@ -15,6 +15,7 @@ void *sys_memcpy(void *dest, const void *src, size_t n);
 void *sys_memset(void *s, int c, size_t n);
 void sys_reverse_string(char *str);
 int sys_strcmp(const char *s1, const char *s2);
+char *sys_strcat(char *dest, const char *src);
 unsigned long long sys_strlen(const char *str);
 void sys_tolowercase(char *str);
 
