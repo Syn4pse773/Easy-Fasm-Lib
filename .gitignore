@@ -13,3 +13,8 @@ test_macro
 testcat.c
 a.out
 test_cat
+test_upper
+test_chr
+test_ncpy
+testcat
+Easy-Fasm-Lib/

@@ -42,5 +42,21 @@ int main()
 	sys_tolowercase(lower);
 	printf("sys_tolowercase: %s\n", lower);
 
+	char upper[] = "shelby_1337";
+	sys_touppercase(upper);
+	printf("sys_touppercase: %s\n", upper);
+
+	const char *strchr_test = "syn4pse";
+	char *res_chr = sys_strchr(strchr_test, '4');
+	printf("sys_strchr ('4' in \"syn4pse\"): index %ld, remainder: %s\n", res_chr ? (res_chr - strchr_test) : -1, res_chr ? res_chr : "NULL");
+
+	char dest_ncpy[20] = "AAAAAAAAAAAAAAAAAAAA";
+	sys_strncpy(dest_ncpy, "Hello", 10);
+	printf("sys_strncpy: %s (first 10 bytes hex: ", dest_ncpy);
+	for (int i = 0; i < 10; i++) {
+		printf("%02x ", (unsigned char)dest_ncpy[i]);
+	}
+	printf(")\n");
+
 	return 0;
 }

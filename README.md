@@ -1,6 +1,6 @@
 # Easy-Fasm-Lib
 
-An ultra-fast, high-performance static library consisting of **11 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
+An ultra-fast, high-performance static library consisting of **14 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
 
 All functions are engineered with highly optimized x86-64 assembly routines, providing superior execution speeds for core string and buffer operations. To ensure a professional and clean namespace, all library functions are prefixed with `sys_`.
 
@@ -8,7 +8,7 @@ All functions are engineered with highly optimized x86-64 assembly routines, pro
 
 ## 🚀 Features
 
-The library compiles into a single static library `libsyn.a` containing the following 11 optimized functions:
+The library compiles into a single static library `libsyn.a` containing the following 14 optimized functions:
 
 ### 1. Memory Operations
 
@@ -56,11 +56,32 @@ The library compiles into a single static library `libsyn.a` containing the foll
         void sys_tolowercase(char *str);
         ```
 
+*   **`sys_touppercase`**
+    *   **Description:** Converts all lowercase ASCII characters in a null-terminated string to uppercase in-place.
+    *   **C Prototype:**
+        ```c
+        void sys_touppercase(char *str);
+        ```
+
 *   **`sys_strcat`**
     *   **Description:** Appends the source string to the destination string, overwriting the terminating null byte at the end of destination, and then adds a terminating null byte. Returns a pointer to the destination string.
     *   **C Prototype:**
         ```c
         char *sys_strcat(char *dest, const char *src);
+        ```
+
+*   **`sys_strchr`**
+    *   **Description:** Locates the first occurrence of `ch` (converted to a `char`) in the null-terminated string pointed to by `str`. Returns a pointer to the located character, or `NULL` if the character is not found.
+    *   **C Prototype:**
+        ```c
+        char *sys_strchr(const char *str, int ch);
+        ```
+
+*   **`sys_strncpy`**
+    *   **Description:** Copies up to `count` characters from the source string to the destination string. If the source string is shorter than `count`, the remainder of destination is padded with null bytes. Returns a pointer to the destination string.
+    *   **C Prototype:**
+        ```c
+        char *sys_strncpy(char *dest, const char *src, size_t count);
         ```
 
 ### 3. Conversions & Parsing
@@ -103,7 +124,7 @@ The library compiles into a single static library `libsyn.a` containing the foll
 Make sure you have **FASM** (flat assembler) and standard development tools (**gcc**, **ar**, **make**) installed on your Linux system.
 
 ### Build the Library
-Simply run `make` inside the project root directory. The build system will automatically assemble all 11 modules and package them into `libsyn.a`:
+Simply run `make` inside the project root directory. The build system will automatically assemble all 14 modules and package them into `libsyn.a`:
 
 ```bash
 make
@@ -183,6 +204,25 @@ int main() {
     char lower[] = "HELLO_world";
     sys_tolowercase(lower);
     printf("sys_tolowercase: %s\n", lower);
+
+    // 12. Uppercase conversion
+    char upper[] = "shelby_1337";
+    sys_touppercase(upper);
+    printf("sys_touppercase: %s\n", upper);
+
+    // 13. Search character in string
+    const char *strchr_test = "syn4pse";
+    char *res_chr = sys_strchr(strchr_test, '4');
+    printf("sys_strchr ('4' in \"syn4pse\"): index %ld, remainder: %s\n", res_chr ? (res_chr - strchr_test) : -1, res_chr ? res_chr : "NULL");
+
+    // 14. Safe string copy with padding
+    char dest_ncpy[20] = "AAAAAAAAAAAAAAAAAAAA";
+    sys_strncpy(dest_ncpy, "Hello", 10);
+    printf("sys_strncpy: %s (first 10 bytes hex: ", dest_ncpy);
+    for (int i = 0; i < 10; i++) {
+        printf("%02x ", (unsigned char)dest_ncpy[i]);
+    }
+    printf(")\n");
 
     return 0;
 }
