@@ -1,14 +1,14 @@
 # Easy-Fasm-Lib
 
-An ultra-fast, high-performance static library consisting of **14 fundamental memory, string, and hashing utilities** written entirely in raw x86-64 Assembly (using FASM).
+An ultra-fast, high-performance static library consisting of **18 fundamental memory, string, and math utilities** written entirely in raw x86-64 Assembly (using FASM).
 
-All functions are engineered with highly optimized x86-64 assembly routines, providing superior execution speeds for core string and buffer operations. To ensure a professional and clean namespace, all library functions are prefixed with `sys_`.
+All functions are engineered with highly optimized x86-64 assembly routines, providing superior execution speeds for core operations. To ensure a professional and clean namespace, all library functions are prefixed with `sys_`.
 
 ---
 
 ## 🚀 Features
 
-The library compiles into a single static library `libsyn.a` containing the following 14 optimized functions:
+The library compiles into a single static library `libsyn.a` containing the following 18 optimized functions:
 
 ### 1. Memory Operations
 
@@ -77,6 +77,13 @@ The library compiles into a single static library `libsyn.a` containing the foll
         char *sys_strchr(const char *str, int ch);
         ```
 
+*   **`sys_strrchr`**
+    *   **Description:** Locates the last occurrence of `ch` (converted to a `char`) in the null-terminated string pointed to by `str`. Returns a pointer to the located character, or `NULL` if the character is not found.
+    *   **C Prototype:**
+        ```c
+        char *sys_strrchr(const char *str, int ch);
+        ```
+
 *   **`sys_strncpy`**
     *   **Description:** Copies up to `count` characters from the source string to the destination string. If the source string is shorter than `count`, the remainder of destination is padded with null bytes. Returns a pointer to the destination string.
     *   **C Prototype:**
@@ -100,7 +107,7 @@ The library compiles into a single static library `libsyn.a` containing the foll
         char *sys_itoa(unsigned long long value, char *buffer);
         ```
 
-### 4. Verification & Hashing
+### 4. Verification & Math
 
 *   **`sys_ispalindrome`**
     *   **Description:** Checks if a null-terminated string is a palindrome. Returns `1` if it is, `0` otherwise.
@@ -116,6 +123,27 @@ The library compiles into a single static library `libsyn.a` containing the foll
         unsigned long long sys_fnv1a_64(const char *str);
         ```
 
+*   **`sys_is_odd`**
+    *   **Description:** Checks if a 64-bit integer is odd. Returns `1` if odd, `0` if even.
+    *   **C Prototype:**
+        ```c
+        int sys_is_odd(long long num);
+        ```
+
+*   **`sys_scale`**
+    *   **Description:** Multiplies a value by 8 and divides by 4 (scales by 2) using bitwise shifts.
+    *   **C Prototype:**
+        ```c
+        unsigned long long sys_scale(unsigned long long val);
+        ```
+
+*   **`sys_testtwo`**
+    *   **Description:** Determines if a 64-bit integer is a power of two. Returns `1` if it is, `0` otherwise.
+    *   **C Prototype:**
+        ```c
+        long long sys_testtwo(long long val);
+        ```
+
 ---
 
 ## 🛠️ Build & Installation
@@ -124,7 +152,7 @@ The library compiles into a single static library `libsyn.a` containing the foll
 Make sure you have **FASM** (flat assembler) and standard development tools (**gcc**, **ar**, **make**) installed on your Linux system.
 
 ### Build the Library
-Simply run `make` inside the project root directory. The build system will automatically assemble all 14 modules and package them into `libsyn.a`:
+Simply run `make` inside the project root directory. The build system will automatically assemble all 18 modules and package them into `libsyn.a`:
 
 ```bash
 make
@@ -147,86 +175,9 @@ make clean
 
 ## 💻 Example Usage
 
-With the new unified header file `libsyn.h`, integrating the library in C or C++ is seamless.
+With the unified header file `libsyn.h`, integrating the library in C or C++ is seamless.
 
-Here is a minimal C demonstration (`main.c`) showing how to use the functions:
-
-```c
-#include <stdio.h>
-#include "libsyn.h"
-
-int main() {
-    char buf[128];
-
-    // 1. Convert string to integer
-    printf("sys_atoi: %lld\n", sys_atoi("12345"));
-
-    // 2. Compute 64-bit FNV-1a hash
-    printf("sys_fnv1a_64: %llx\n", sys_fnv1a_64("Hello"));
-
-    // 3. Palindrome checks
-    printf("sys_ispalindrome (racecar): %d\n", sys_ispalindrome("racecar"));
-    printf("sys_ispalindrome (hello): %d\n", sys_ispalindrome("hello"));
-
-    // 4. Convert integer to string
-    sys_itoa(13378822, buf);
-    printf("sys_itoa: %s\n", buf);
-
-    // 5. Memory copy
-    char src[] = "memcpy_test";
-    char dest[32] = {0};
-    sys_memcpy(dest, src, 11);
-    printf("sys_memcpy: %s\n", dest);
-
-    // 6. Memory set
-    char mem[10] = {0};
-    sys_memset(mem, 'A', 5);
-    printf("sys_memset: %s\n", mem);
-
-    // 7. In-place string reversal
-    char rev[] = "stressed";
-    sys_reverse_string(rev);
-    printf("sys_reverse_string: %s\n", rev);
-
-    // 8. String comparison
-    printf("sys_strcmp (equal): %d\n", sys_strcmp("abc", "abc"));
-    printf("sys_strcmp (unequal): %d\n", sys_strcmp("abc", "abd"));
-
-    // 9. Get string length
-    printf("sys_strlen: %llu\n", sys_strlen("strlen_test"));
-
-    // 10. String concatenation
-    char dest_cat[50] = "Hello, ";
-    char *res_cat = sys_strcat(dest_cat, "World!");
-    printf("sys_strcat: %s (returned: %p, expected: %p)\n", dest_cat, res_cat, dest_cat);
-
-    // 11. Lowercase conversion
-    char lower[] = "HELLO_world";
-    sys_tolowercase(lower);
-    printf("sys_tolowercase: %s\n", lower);
-
-    // 12. Uppercase conversion
-    char upper[] = "shelby_1337";
-    sys_touppercase(upper);
-    printf("sys_touppercase: %s\n", upper);
-
-    // 13. Search character in string
-    const char *strchr_test = "syn4pse";
-    char *res_chr = sys_strchr(strchr_test, '4');
-    printf("sys_strchr ('4' in \"syn4pse\"): index %ld, remainder: %s\n", res_chr ? (res_chr - strchr_test) : -1, res_chr ? res_chr : "NULL");
-
-    // 14. Safe string copy with padding
-    char dest_ncpy[20] = "AAAAAAAAAAAAAAAAAAAA";
-    sys_strncpy(dest_ncpy, "Hello", 10);
-    printf("sys_strncpy: %s (first 10 bytes hex: ", dest_ncpy);
-    for (int i = 0; i < 10; i++) {
-        printf("%02x ", (unsigned char)dest_ncpy[i]);
-    }
-    printf(")\n");
-
-    return 0;
-}
-```
+See `main.c` for an exhaustive demonstration of all 18 functions.
 
 ### Compile & Run the Example
 You can compile and execute the demo using:

@@ -18,3 +18,13 @@ test_chr
 test_ncpy
 testcat
 Easy-Fasm-Lib/
+
+# User test files
+test_odd
+test_pow2
+test_rchr
+test_rchr.*
+test_shift
+test_shift.c
+testpov.c
+test.c
